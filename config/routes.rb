@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
+  resources :battles
+  resources :user_teams
+  get 'user_teams/:id', to: 'user_teams#update_team'
+  get '/update', to: 'home#update_user_team'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_team_id: 1
+  opponent_team_id: 1
+  user_pokemon_remaining: 1
+  opponent_pokemon_remaining: 1
+  win: false
+
+two:
+  user_team_id: 1
+  opponent_team_id: 1
+  user_pokemon_remaining: 1
+  opponent_pokemon_remaining: 1
+  win: false
