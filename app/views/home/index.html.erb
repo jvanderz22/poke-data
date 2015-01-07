@@ -1,16 +1,19 @@
 <script>
   $(document).ready(function() {
+    pokemonHTML = function(pokemon) {
+
+    }
     $("#battle_selected_team_id").change(function() {
       var value = $(this).val()
       $.ajax({
         url: '/user_teams/' + value,
         type: 'GET',
         success: function(data) {
-        $('.pokemon-list').html("<h4> Pokemon list <% @user_team.pokemon.each do |pokemon| %> <%= pokemon.name %> <% end %>  </h4>")
-         }
-      })
+          $('.pokemon-list').html("<h4> Pokemon list <% @user_team.pokemon.each do |pokemon| %> <%= pokemon.name %> <% end %>  </h4>")
+        }
       })
     })
+  })
 </script>
 <h2> Hello World </h2>
 <%= @user_team %>
