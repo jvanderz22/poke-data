@@ -41,3 +41,7 @@ gem 'unicorn'
 
 gem 'rails_12factor', group: :production
 gem 'pry', group: :development
+
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'

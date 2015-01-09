@@ -1,0 +1,40 @@
+<h2> New Team </h2>
+<%= form_for (UserTeam.new) do |f| %>
+   <div class="pokemon">
+    <%= f.label(:name, "Name:") %>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <%= f.fields_for :pokemon do |ff| %>
+    <div class="pokemon">
+      <%= ff.label(:pokemon1, "Pokemon 1:") %>
+      <%= ff.text_field(:pokemon1) %>
+    </div>
+
+    <div class="pokemon">
+      <%= ff.label(:pokemon2, "Pokemon 2:") %>
+      <%= ff.text_field(:pokemon2) %>
+    </div>
+
+    <div class="pokemon">
+      <%= ff.label(:pokemon3, "Pokemon 3:") %>
+      <%= ff.text_field(:pokemon3) %>
+    </div>
+
+    <div class="pokemon">
+      <%= ff.label(:pokemon4, "Pokemon 4:") %>
+      <%= ff.text_field(:pokemon4) %>
+    </div>
+
+    <div class="pokemon">
+      <%= ff.label(:pokemon5, "Pokemon 5:") %>
+      <%= ff.text_field(:pokemon5) %>
+    </div>
+
+    <div class="pokemon">
+      <%= ff.label(:pokemon6, "Pokemon 6:") %>
+      <%= ff.text_field(:pokemon6) %>
+    </div>
+  <% end %>
+  <%= f.submit "Submit" %>
+<% end %>

@@ -1,11 +1,6 @@
 class HomeController < ApplicationController
   def index
-    
-    @user_team = UserTeam.first
-  end
-
-  def update_user_team
-    binding.pry
+    @user_team = params[:id] ? UserTeam.find(params[:id]) : UserTeam.first
   end
 
 end
