@@ -8,7 +8,19 @@
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
-
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="navbar-brand"> Poke-Data </div>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li> <%= link_to "Battles", controller: "battles" %> </li>
+          <li> <%= link_to "Create Team", controller: "user_teams"%> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container">
     <%= yield %>
   </div>

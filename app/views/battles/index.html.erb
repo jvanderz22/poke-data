@@ -42,6 +42,9 @@
 
     var urlVars = window.location.search.substring(1).split('&')
     var id = urlVars[0].split('=')[1]
+    if (id == null) {
+      id = 1
+    }
     updateTeam(id)
     $("#battle_selected_team_id").val(id)
   })
