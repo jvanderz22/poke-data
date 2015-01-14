@@ -1,4 +1,6 @@
 class BattlesController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
+
   def index
     puts 'index'
   end
