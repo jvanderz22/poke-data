@@ -1,60 +1,11 @@
-<script>
-  $(document).ready(function() {
-    checkbox = function(id, type) {
-      label = type.charAt(0).toUpperCase() + type.slice(1)
-      return '<label for="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '">' + label +
-      '</label> <input name="battle[user_team][pokemon_team][pokemon' + id +  '_' + type + ']" type="hidden" value="0">' +
-      '<input id="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '" name="battle[opponent_team][pokemon_team][pokemon' + id +
-      '_' + type + ']" type="checkbox" value="1">'
-    }
-    pokemonHTML = function(pokemon) {
-      var html = ""
-      for (i = 0; i < 6; i++) {
-        var id = i + 1
-        var name;
-        if (pokemon[i] != null) {
-          name = pokemon[i].name
-        }
-        else {
-          name = ''
-        }
-        html = html + '<div class="pokemon"><label>Pokemon: </label>' +
-        '<input id="battle_user_team_pokemon_team' + id +
-        '" name="battle[user_team][pokemon_team][pokemon' + id +
-        ']" type="text" value="' + name + '">' + checkbox(id, 'lead') + checkbox(id, 'back') + "</div>"
-      }
-      return html
-    }
-    updateTeam = function(id) {
-      $.ajax({
-        url: '/user_teams/' + id,
-        type: 'GET',
-        success: function(data) {
-          $('.pokemon-list').html(pokemonHTML(data.pokemon))
-        }
-      })
-    }
-
-    $("#battle_selected_team_id").change(function() {
-      var id = $(this).val()
-      updateTeam(id)
-    })
-
-    var urlVars = window.location.search.substring(1).split('&')
-    var id = urlVars[0].split('=')[1]
-    if (id == null) {
-      id = 1
-    }
-    updateTeam(id)
-    $("#battle_selected_team_id").val(id)
-  })
-</script>
 <h2> Battle Tracker! </h2>
 <%= form_for (Battle.new) do |f| %>
   <div class="row">
     <div class="col-md-6 user-team">
       <div class="user-team-select">
-        <%= f.collection_select(:selected_team_id, UserTeam.all, :id, :name) %>
+        <% if user_signed_in? %>
+          <%= f.collection_select(:selected_team_id, UserTeam.where(user_id: current_user.id), :id, :name) %>
+        <% end %>
       </div>
       <div class ="pokemon-list">
       </div>
