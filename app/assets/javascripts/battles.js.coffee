@@ -6,7 +6,7 @@ ready = ( ->
     '<input id="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '" name="battle[opponent_team][pokemon_team][pokemon' + id +
     '_' + type + ']" type="checkbox" value="1">'
 
-  pokemonHTML = (pokemon) ->
+  pokemonHTML = (pokemon = []) ->
     html = ""
     for i in [0..5]
       id = i + 1
@@ -34,13 +34,20 @@ ready = ( ->
     updateTeam(id)
   )
 
+  emptyPokemonList = () ->
+    $('.pokemon-list').html(pokemonHTML())
+    $("#battle_selected_team_id").val(0)
+
   $.ajax({
-    url: '/session',
+    url: '/team_session',
     type: 'GET',
     success: (data) ->
       user_team_id = data['user_team_id']
-      updateTeam(user_team_id)
-      $("#battle_selected_team_id").val(user_team_id)
+      if user_team_id?
+        updateTeam(user_team_id)
+        $("#battle_selected_team_id").val(user_team_id)
+      else
+        emptyPokemonList()
   })
 )
 $(document).ready(ready)
