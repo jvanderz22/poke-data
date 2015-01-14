@@ -1,4 +1,4 @@
-$(document).ready ->
+ready = ( ->
   checkbox = (id, type) ->
     label = type.charAt(0).toUpperCase() + type.slice(1)
     return '<label for="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '">' + label +
@@ -42,3 +42,6 @@ $(document).ready ->
       updateTeam(user_team_id)
       $("#battle_selected_team_id").val(user_team_id)
   })
+)
+$(document).ready(ready)
+$(document).on('page:load', ready)
