@@ -6,20 +6,25 @@ class UserTeamsController < ApplicationController
   end
 
   def show
-    user_team = UserTeam.find(params[:id])
-    @user_team = user_team
-    render json: user_team.to_json(include: :pokemon)
+    if user_signed_in?
+      user_team = UserTeam.find(params[:id])
+      @user_team = user_team
+      render json: user_team.to_json(include: :pokemon)
+    else
+      render json: {pokemon: []}.to_json
+    end
   end
 
   def create
     user_team = create_team
-    redirect_to controller: 'battles', id: user_team.id
+    session[:user_team_id] = user_team.id
+    redirect_to controller: 'battles'
   end
 
   private
 
   def create_team
-    user_team = UserTeam.create(name: params[:user_team][:name])
+    user_team = UserTeam.create(name: params[:user_team][:name], user_id: current_user.id)
     user_team.update!({pokemon_user_teams_attributes: pokemon_team(user_team.id)})
     user_team
   end

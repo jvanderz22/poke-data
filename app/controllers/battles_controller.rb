@@ -7,19 +7,23 @@ class BattlesController < ApplicationController
 
   def create
     Battle.create(battle_params)
-    redirect_to controller: 'battles', id: params[:battle][:selected_team_id]
+    session[:user_team_id] = selected_team_id
+    redirect_to controller: 'battles'
   end
 
   private
 
   def battle_params
     {
-      selected_team_id: params[:battle][:selected_team_id],
+      user_id: current_user.id,
+      selected_team_id: selected_team_id,
       user_team_id: new_team('user'),
       opponent_team_id: new_team('opponent'),
       user_pokemon_remaining: params[:battle][:user_pokemon_remaining],
       opponent_pokemon_remaining: params[:battle][:opponent_pokemon_remaining],
-      win: params[:battle][:win]
+      win: params[:battle][:win],
+      showdown: params[:battle][:showdown],
+      opponent_rating: params[:battle][:opponent_rating]
     }
   end
 
@@ -41,5 +45,9 @@ class BattlesController < ApplicationController
         team_id: team_id
       }
     end
+  end
+
+  def selected_team_id
+    params[:battle][:selected_team_id]
   end
 end
