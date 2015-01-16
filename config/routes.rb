@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'create_team', to: 'user_teams#index'
   post 'create_team', to: 'user_teams#create'
   get 'team_session', to: 'team_session#show'
+  get 'data', to: 'data#show'
+  get 'data/:id', to: 'data#update_display'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

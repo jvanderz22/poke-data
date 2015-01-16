@@ -1,0 +1,7 @@
+<div class="user-team-select">
+<% if user_signed_in? %>
+  <%= collection_select(:selected_team, :selected_team_id, UserTeam.where(user_id: current_user.id), :id, :name, { :selected => @current_team.id }) %>
+<% end %>
+</div>
+
+<div id="user-usage-data"> </div>

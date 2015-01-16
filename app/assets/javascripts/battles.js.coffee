@@ -3,7 +3,7 @@ ready = ( ->
     label = type.charAt(0).toUpperCase() + type.slice(1)
     return '<label for="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '">' + label +
     '</label> <input name="battle[user_team][pokemon_team][pokemon' + id +  '_' + type + ']" type="hidden" value="0">' +
-    '<input id="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '" name="battle[opponent_team][pokemon_team][pokemon' + id +
+    '<input id="battle_user_team_pokemon_team_pokemon' + id + '_' + type + '" name="battle[user_team][pokemon_team][pokemon' + id +
     '_' + type + ']" type="checkbox" value="1">'
 
   pokemonHTML = (pokemon = []) ->
@@ -15,9 +15,9 @@ ready = ( ->
       else
         name = ''
       html = html + '<div class="pokemon"><label>Pokemon: </label>' +
-      '<input id="battle_user_team_pokemon_team' + id +
+      '<input id="battle_user_team_pokemon_team_pokemon' + id +
       '" name="battle[user_team][pokemon_team][pokemon' + id +
-      ']" type="text" value="' + name + '" class="disabled" disabled>' +
+      ']" type="text" value="' + name + '" class="disabled" readonly>' +
       checkbox(id, 'lead') + checkbox(id, 'back') + "</div>"
     return html
 

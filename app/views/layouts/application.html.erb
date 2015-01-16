@@ -17,6 +17,7 @@
         <ul class="nav navbar-nav">
           <li> <%= link_to "Battles", controller: "/battles" %> </li>
           <li> <%= link_to "Create Team", controller: "/user_teams"%> </li>
+          <li> <%= link_to "Data", controller: "/data", action: "show"%> </li>
           <% if user_signed_in? %>
             <p class="navbar-text"> Signed in as <%= current_user.email %> </p>
             <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>

@@ -1,0 +1,88 @@
+<h3> Individual Usage </h3>
+
+<table>
+  <thead>
+    <th> Pokemon </th>
+    <th> Total Battles Used </th>
+    <th> Used % </th>
+    <th> Lead % </th>
+    <th> Total Battles Won  </th>
+    <th> Win % </th>
+    <th> Total Battles Lead </th>
+    <th> Battles Won When Lead </th>
+    <th> Lead Win % </th>
+  </thead>
+  <tbody>
+    <% @pokemon_usage.each do |pokemon_usage| %>
+      <tr>
+        <td> <%= pokemon_usage.pokemon %> </td>
+        <td> <%= pokemon_usage.used_battles %> </td>
+        <td> <%= pokemon_usage.used_pct %> </td>
+        <td> <%= pokemon_usage.lead_pct %> </td>
+        <td> <%= pokemon_usage.used_wins %> </td>
+        <td> <%= pokemon_usage.win_pct %> </td>
+        <td> <%= pokemon_usage.lead_battles %> </td>
+        <td> <%= pokemon_usage.lead_wins %> </td>
+        <td> <%= pokemon_usage.lead_win_pct %> </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+
+<h3> Lead Combination Usage </h3>
+<table>
+  <thead>
+    <th> Pokemon 1 </th>
+    <th> Pokemon 2 </th>
+    <th> Total Battles Used </th>
+    <th> Lead % </th>
+    <th> Wins </th>
+    <th> Win % </th>
+  </thead>
+  <tbody>
+    <% @lead_usage.each do |lead_usage| %>
+      <tr>
+        <td> <%= lead_usage.pokemon[0] %> </td>
+        <td> <%= lead_usage.pokemon[1] %> </td>
+        <td> <%= lead_usage.total_battles %> </td>
+        <td>
+          <%= (BigDecimal(lead_usage.total_battles)/@valid_leads).round(4) * 100 %>
+        </td>
+
+        <td> <%= lead_usage.wins %> </td>
+        <td> <%= lead_usage.win_pct %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3> Team Combination Usage </h3>
+<table>
+  <thead>
+    <th> Pokemon 1 </th>
+    <th> Pokemon 2 </th>
+    <th> Pokemon 3 </th>
+    <th> Pokemon 4 </th>
+    <th> Total Battles Used </th>
+    <th> Used %
+    <th> Wins </th>
+    <th> Win % </th>
+  </thead>
+  <tbody>
+    <% @team_usage.each do |team_usage| %>
+      <tr>
+        <td> <%= team_usage.pokemon[0] %> </td>
+        <td> <%= team_usage.pokemon[1] %> </td>
+        <td> <%= team_usage.pokemon[2] %> </td>
+        <td> <%= team_usage.pokemon[3] %> </td>
+        <td> <%= team_usage.total_battles %> </td>
+        <td>
+          <%= (BigDecimal(team_usage.total_battles)/@valid_teams).round(4) * 100 %>
+        </td>
+        <td> <%= team_usage.wins %> </td>
+        <td> <%= team_usage.win_pct %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
