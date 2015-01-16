@@ -47,7 +47,6 @@ class DataController < ApplicationController
   end
 
   def valid_leads
-    binding.pry
     @valid_leads ||= lead_usage.inject(0) { |total, lead| total + lead.total_battles }
   end
 
