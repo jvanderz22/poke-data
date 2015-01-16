@@ -19,7 +19,7 @@ class LeadUsage
   def pokemon
     @pokemon ||= pokemon_ids.map do |pokemon_id|
       Pokemon.find(pokemon_id).name
-    end
+    end.sort
   end
 
   def is_valid?
