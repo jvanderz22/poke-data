@@ -3,8 +3,6 @@ ready = ( ->
     $.ajax({
       url: '/data/' + id,
       type: 'GET',
-      success: (data) ->
-        $('.pokemon-list').html(pokemonHTML(data.pokemon))
     })
 
   $("#selected_team_selected_team_id").change( ->
