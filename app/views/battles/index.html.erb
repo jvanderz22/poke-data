@@ -16,18 +16,18 @@
       <br />
       <%= f.fields_for :opponent_team do |ff| %>
         <%= ff.fields_for :pokemon_team do |fa| %>
-        <div class="pokemon">
-          <%= fa.label(:pokemon1, "Pokemon 1:") %>
-          <%= fa.text_field(:pokemon1) %>
-          <%= fa.label(:pokemon1_lead, "Lead") %>
-          <%= fa.check_box(:pokemon1_lead) %>
-          <%= fa.label(:pokemon1_back, "Back") %>
-          <%= fa.check_box(:pokemon1_back) %>
+        <div class="form-group">
+            <%= fa.label :pokemon1, "Pokemon 1:" %>
+            <%= fa.text_field :pokemon1 %>
+            <%= fa.label :pokemon1_lead, "Lead", class: 'checkbox-form-inline' %>
+            <%= fa.check_box :pokemon1_lead %>
+            <%= fa.label :pokemon1_back, "Back", class: 'checkbox-form-inline' %>
+            <%= fa.check_box :pokemon1_back %>
         </div>
         <% end %>
 
         <%= ff.fields_for :pokemon_team do |fa| %>
-          <div class="pokemon">
+          <div class="form_group">
             <%= fa.label(:pokemon2, "Pokemon 2:") %>
             <%= fa.text_field(:pokemon2) %>
             <%= fa.label(:pokemon2_lead, "Lead") %>
