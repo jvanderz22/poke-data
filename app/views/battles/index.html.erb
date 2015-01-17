@@ -4,7 +4,11 @@
     <div class="col-md-6 user-team">
       <div class="user-team-select">
         <% if user_signed_in? %>
-          <%= f.collection_select(:selected_team_id, UserTeam.where(user_id: current_user.id), :id, :name, { :selected => @user_team.id } ) %>
+          <% if @user_team.nil? %>
+            Get started by <%= link_to "creating a team", controller: "/user_team" %>
+          <% else %>
+            <%= f.collection_select(:selected_team_id, UserTeam.where(user_id: current_user.id), :id, :name, { :selected => @user_team.id } ) %>
+          <% end %>
         <% else %>
           Either <%= link_to "sign in", new_user_session_path %> or <%= link_to "create an account", new_user_registration_path %> to get started
         <% end %>
