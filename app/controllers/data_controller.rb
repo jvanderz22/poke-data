@@ -6,13 +6,15 @@ class DataController < ApplicationController
   end
 
   def show
-    @current_team = current_user.user_teams.first
-    @usage_data = UserUsageData.new(current_user.user_teams.first) 
+    @current_team = current_user.user_teams.last
+    @usage_data = UserUsageData.new(@current_team)
+    prepare_for_display
   end
 
   def update_display
     id = params[:id]
-    @usage_data = UserUsageData.new(UserTeam.find(id))
+    @current_team = UserTeam.find(id)
+    @usage_data = UserUsageData.new(@current_team)
     prepare_for_display
     respond_to do |format|
       format.js
@@ -21,6 +23,15 @@ class DataController < ApplicationController
 
   #okay there's gotta be a better way to do this...
   def prepare_for_display
+    battle_statistics
+    user_usage
+  end
+
+  def battle_statistics
+    @battle_statistics ||= BattleStatistics.new(current_user, @current_team)
+  end
+
+  def user_usage
     pokemon_usage
     lead_usage
     team_usage

@@ -1,0 +1,48 @@
+<h3> Team Statistics </h3>
+
+<table class="table table-striped table-condensed custom-table">
+  <tr>
+    <th> Total Battles </th>
+    <td><%= @battle_statistics.total_battles %> </td>
+  </tr>
+  <tr>
+    <th> Total Wins </th>
+    <td><%= @battle_statistics.total_wins %> </td>
+  </tr>
+  <tr>
+    <th> Win % </th>
+    <td><%= @battle_statistics.win_pct %> </td>
+  </tr>
+  <tr>
+    <th> Showdown Battles </th>
+    <td><%= @battle_statistics.total_showdown_battles %> </td>
+  </tr>
+  <tr>
+    <th> Showdown Wins </th>
+    <td><%= @battle_statistics.total_showdown_wins %> </td>
+  </tr>
+  <tr>
+    <th> Showdown Win % </th>
+    <td><%= @battle_statistics.showdown_win_pct %> </td>
+  </tr>
+  <tr>
+    <th> Avg Showdown Opponent Rank </th>
+    <td><%= @battle_statistics.avg_showdown_ranking %> </td>
+  </tr>
+  <tr>
+    <th> Battle Spot Battles </th>
+    <td><%= @battle_statistics.total_battle_spot_battles %> </td>
+  </tr>
+  <tr>
+    <th> Battle Spot Wins </th>
+    <td><%= @battle_statistics.total_battle_spot_wins %> </td>
+  </tr>
+  <tr>
+    <th> Battle Spot Win % </th>
+    <td><%= @battle_statistics.battle_spot_win_pct %> </td>
+  </tr>
+  <tr>
+    <th> Avg Battle Spot Opponent Rank </th>
+    <td><%= @battle_statistics.avg_battle_spot_ranking %> </td>
+  </tr>
+</table>
