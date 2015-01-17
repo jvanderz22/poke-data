@@ -4,7 +4,7 @@ class BattlesController < ApplicationController
   def index
     if user_signed_in?
       @user_team = UserTeam.where(user_id: current_user.id).last
-      session[:user_team_id] = @user_team.id
+      session[:user_team_id] = @user_team.id unless @user_team.nil?
     end
   end
 
