@@ -2,7 +2,8 @@ class BattlesController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def index
-    puts 'index'
+    @user_team = UserTeam.where(user_id: current_user.id).last
+    session[:user_team_id] = @user_team.id
   end
 
   def create
