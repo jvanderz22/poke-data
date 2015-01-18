@@ -71,17 +71,17 @@ class BattleStatistics
 
   def avg_showdown_ranking
     return 0 if total_showdown_battles == 0
-    total = showdown_battles.map { |battle| battle.opponent_rating }.inject(0) do |sum, ranking|
-      sum + ranking
-    end
-    total / total_showdown_battles
+    opponent_ratings = showdown_battles.map { |battle| battle.opponent_rating }
+    valid_ratings = opponent_ratings.delete_if { |rating| rating.nil? || rating == 0 }
+    total = valid_ratings.inject(0) { |sum, ranking| sum + ranking }
+    total / valid_ratings.length
   end
 
   def avg_battle_spot_ranking
     return 0 if total_battle_spot_battles == 0
-    total = battle_spot_battles.map { |battle| battle.opponent_rating }.inject(0) do |sum, ranking|
-      sum + ranking
-    end
-    total / total_battle_spot_battles
+    opponent_ratings = battle_spot_battles.map { |battle| battle.opponent_rating }
+    valid_ratings = opponent_ratings.delete_if { |rating| rating.nil? || rating == 0 }
+    total = valid_ratings.inject(0) { |sum, ranking| sum + ranking }
+    total / valid_ratings.length
   end
 end
