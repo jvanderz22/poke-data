@@ -33,6 +33,7 @@ class BattlesController < ApplicationController
   private
 
   def generate_empty_session
+    session[:opponent_pokemon] = {}
     (1..6).each do |n|
       session[:opponent_pokemon]["pokemon#{n}".to_sym] = ""
       session[:opponent_pokemon]["pokemon#{n}_lead".to_sym] = false
