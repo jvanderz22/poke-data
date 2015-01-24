@@ -8,6 +8,7 @@ class DataController < ApplicationController
   def show
     @current_team = current_user.user_teams.last
     @usage_data = UserUsageData.new(@current_team)
+    @opponent_usage_data = OpponentUsageData.new(@current_team)
     prepare_for_display
   end
 
@@ -15,6 +16,7 @@ class DataController < ApplicationController
     id = params[:id]
     @current_team = UserTeam.find(id)
     @usage_data = UserUsageData.new(@current_team)
+    @opponent_usage_data = OpponentUsageData.new(@current_team)
     prepare_for_display
     respond_to do |format|
       format.js
@@ -25,10 +27,21 @@ class DataController < ApplicationController
   def prepare_for_display
     battle_statistics
     user_usage
+    opponent_usage
   end
 
   def battle_statistics
     @battle_statistics ||= BattleStatistics.new(current_user, @current_team)
+  end
+
+  def opponent_usage
+    opponent_pokemon_usage
+  end
+
+  def opponent_pokemon_usage
+    @opponent_pokemon_usage ||= @opponent_usage_data.pokemon_usage.sort_by do |key, pokemon|
+      pokemon.total_battles
+    end.reverse.map { |key, value| value }
   end
 
   def user_usage
