@@ -20,7 +20,7 @@ class OpponentUsageData
   end
 
   def add_battle_to_usage(battle)
-    battle.user_team.pokemon_teams.each do |pokemon_team|
+    battle.opponent_team.pokemon_teams.each do |pokemon_team|
       add_pokemon_to_pokemon_usage(pokemon_team, !battle.win)
     end
   end
