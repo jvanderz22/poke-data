@@ -9,5 +9,4 @@ class PokemonUserTeam < ActiveRecord::Base
       self.pokemon = Pokemon.create({name: attr})
     end
   end
-
 end

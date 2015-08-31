@@ -1,10 +1,6 @@
 class UserTeamsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
-  def index
-
-  end
-
   def show
     if user_signed_in?
       user_team = UserTeam.find(params[:id])
@@ -24,18 +20,23 @@ class UserTeamsController < ApplicationController
   private
 
   def create_team
-    user_team = UserTeam.create(name: params[:user_team][:name], user_id: current_user.id)
-    user_team.update!({pokemon_user_teams_attributes: pokemon_team(user_team.id)})
-    user_team
+    user_team = UserTeam.new({
+      user_id: team_attrs[:user_id],
+      name: team_attrs[:name],
+      pokemon: pokemon_objs
+    })
+    user_team.save!
   end
 
-  def pokemon_team(team_id)
-    pokemon_team = params[:user_team][:pokemon]
-    Array.new(6).map.with_index do |i, y|
-      {
-        pokemon_name: pokemon_team["pokemon#{y+1}"],
-        user_team_id: team_id
-      }
+  def pokemon_objs
+    @pokemon_objs ||= teams_attrs[:pokemon].each do |pokemon_string|
+      pokemon = Pokemon.find_by_name(pokemon_string)
+      raise PokemonNotFound if pokemon.nil?
+      pokemon
     end
+  end
+
+  def team_attrs
+    params.require(:team).permit(:pokemon, :user_id, :name)
   end
 end
