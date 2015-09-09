@@ -1,35 +1,46 @@
-class UserTeamsController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+class TeamsController < ApplicationController
+  include RepresentsJsonApiResources
 
-  def show
-    if user_signed_in?
-      user_team = UserTeam.find(params[:id])
-      @user_team = user_team
-      render json: user_team.to_json(include: :pokemon)
-    else
-      render json: {pokemon: []}.to_json
-    end
+  PokemonNotFound = Class.new(StandardError)
+
+  def index
+    user_id = params.require(:user_id)
+    user_teams = UserTeam.where(user_id: user_id)
+    represent user_teams
   end
 
   def create
-    user_team = create_team
-    session[:user_team_id] = user_team.id
-    redirect_to controller: 'battles'
+    user_team = new_user_team
+    if user_team.save!
+      represent user_team
+    else
+      render json: { errors: ['could not create team'] }.to_json
+    end
+  rescue PokemonNotFound
+    render json: { errors: ['could not create team'] }.to_json
+  end
+
+  def destroy
+    user_team = UserTeam.find(params[:id])
+    if user_team.destroy!
+      head :no_content
+    else
+      render json: { errors: ['could not delete team'] }.to_json
+    end
   end
 
   private
 
-  def create_team
-    user_team = UserTeam.new({
+  def new_user_team
+    UserTeam.new({
       user_id: team_attrs[:user_id],
       name: team_attrs[:name],
       pokemon: pokemon_objs
     })
-    user_team.save!
   end
 
   def pokemon_objs
-    @pokemon_objs ||= teams_attrs[:pokemon].each do |pokemon_string|
+    @pokemon_objs ||= team_attrs[:pokemon].map do |pokemon_string|
       pokemon = Pokemon.find_by_name(pokemon_string)
       raise PokemonNotFound if pokemon.nil?
       pokemon
@@ -37,6 +48,6 @@ class UserTeamsController < ApplicationController
   end
 
   def team_attrs
-    params.require(:team).permit(:pokemon, :user_id, :name)
+    params.require(:team).permit(:user_id, :name, pokemon: [])
   end
 end
