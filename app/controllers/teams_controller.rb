@@ -1,18 +1,16 @@
 class TeamsController < ApplicationController
-  include RepresentsJsonApiResources
-
   PokemonNotFound = Class.new(StandardError)
 
   def index
     user_id = params.require(:user_id)
     user_teams = UserTeam.where(user_id: user_id)
-    represent user_teams
+    render json: user_teams, each_serializer: TeamSerializer
   end
 
   def create
     user_team = new_user_team
     if user_team.save!
-      represent user_team
+      render json: user_team, serializer: TeamSerializer
     else
       render json: { errors: ['could not create team'] }.to_json
     end

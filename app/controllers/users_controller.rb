@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  include RepresentsJsonApiResources
 
   def show
     user = User.find(params[:id])
-    represent user
+    render json: user
   end
 end
