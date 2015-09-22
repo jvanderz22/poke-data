@@ -18,4 +18,18 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def json_api_params
+    params.require(:data).require(:attributes)
+  end
+
+  def render_errors(active_model_errors, options = {})
+    status = options[:status] || 422
+    errors = active_model_errors.messages.map do |message|
+      pointer = "/data/attributes/#{message[0]}"
+      detail = message[1]
+      Error.new(pointer: pointer, detail: detail, status: status)
+    end
+    render json: errors, each_serializer: ErrorSerializer, status: status
+  end
 end
