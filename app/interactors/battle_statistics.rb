@@ -1,4 +1,5 @@
 class BattleStatistics
+
   attr_reader :user_team, :current_user
 
   def initialize(current_user, user_team)
@@ -70,19 +71,19 @@ class BattleStatistics
   end
 
   def avg_showdown_ranking
-    @avg_showdown_ranking ||= avg_battle_rankings(showdown_battles)
+    @avg_showdown_ranking ||= avg_battles_ranking(showdown_battles)
   end
 
   def avg_battle_spot_ranking
-    @avg_battle_spot_ranking ||= avg_battle_rankings(battle_spot_battles)
+    @avg_battle_spot_ranking ||= avg_battles_ranking(battle_spot_battles)
   end
 
   private
 
   def avg_battles_ranking(battles)
-    opponent_ratings = batles.map { |battle| battle.opponent_rating }
+    opponent_ratings = battles.map { |battle| battle.opponent_rating }
     valid_ratings = opponent_ratings.delete_if { |rating| rating.nil? || rating == 0 }
-    return 0 if valid_rankings.length == 0
+    return 0 if valid_ratings.length == 0
     total = valid_ratings.inject(0) { |sum, ranking| sum + ranking }
     total / valid_ratings.length
   end
